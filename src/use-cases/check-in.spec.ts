@@ -19,10 +19,9 @@ describe('Check-in Use Case', () => {
       title: 'Javascript Academia',
       description: '',
       phone: '',
-      latitude: new Decimal(0),
-      longitude: new Decimal(0),
+      latitude: new Decimal(-21.9751256),
+      longitude: new Decimal(-47.9526912),
     })
-
     vi.useFakeTimers()
   })
 
@@ -42,7 +41,7 @@ describe('Check-in Use Case', () => {
   })
 
   it('should not be able to check in twice in the same day', async () => {
-    vi.setSystemTime(new Date('2024, 0, 20, 8, 0, 0'))
+    vi.setSystemTime(new Date('2023-01-11T00:00:00Z'))
 
     await sut.execute({
       gymId: 'gym-01',
@@ -51,7 +50,7 @@ describe('Check-in Use Case', () => {
       userLongitude: -47.9526912,
     })
 
-    await expect(() =>
+    await expect(
       sut.execute({
         gymId: 'gym-01',
         userId: 'user-01',
@@ -81,5 +80,25 @@ describe('Check-in Use Case', () => {
     })
 
     expect(checkIn.id).toEqual(expect.any(String))
+  })
+
+  it('should not be able to check in on distant gym', async () => {
+    gymsRepository.items.push({
+      id: 'gym-01',
+      title: 'Javascript Academia',
+      description: '',
+      phone: '',
+      latitude: new Decimal(-24.9751256),
+      longitude: new Decimal(-49.9526912),
+    })
+
+    await expect(() =>
+      sut.execute({
+        gymId: 'gym-02',
+        userId: 'user-01',
+        userLatitude: -21.9751256,
+        userLongitude: -47.9526912,
+      }),
+    ).rejects.toBeInstanceOf(Error)
   })
 })
