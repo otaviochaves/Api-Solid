@@ -21,6 +21,7 @@
     "@types/node": "20.12.13",
     "@vitest/coverage-v8": "1.6.0",
     "@vitest/ui": "1.6.0",
+    "dayjs": "1.11.11",
     "eslint": "8.57.0",
     "globals": "15.3.0",
     "prisma": "5.14.0",
