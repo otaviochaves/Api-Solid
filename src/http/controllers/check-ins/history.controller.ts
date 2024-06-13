@@ -19,5 +19,5 @@ export async function historyCheckInsController(
     page,
   })
 
-  return reply.status(201).send({ checkIns })
+  return reply.status(200).send({ checkIns })
 }
