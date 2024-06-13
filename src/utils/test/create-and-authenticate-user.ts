@@ -1,8 +1,8 @@
-import { FastifyInstance } from "fastify"
-import  request  from "supertest"
+import { FastifyInstance } from 'fastify'
+import request from 'supertest'
 
-export async function createAndAuthenticateUser(app: FastifyInstance){
-await request(app.server).post('/users').send({
+export async function createAndAuthenticateUser(app: FastifyInstance) {
+  await request(app.server).post('/users').send({
     name: 'Otávio',
     email: 'otaviochaves@gmail.com',
     password: '123456',
@@ -16,6 +16,6 @@ await request(app.server).post('/users').send({
   const { token } = authResponse.body
 
   return {
-    token
+    token,
   }
 }

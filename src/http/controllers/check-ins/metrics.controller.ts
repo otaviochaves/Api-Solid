@@ -5,7 +5,6 @@ export async function metricsCheckInsController(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
-
   const getUserMetricsUseCase = makeGetUserMetricsUseCase()
 
   const { checkInsCount } = await getUserMetricsUseCase.execute({

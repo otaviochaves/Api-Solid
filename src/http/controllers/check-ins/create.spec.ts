@@ -14,23 +14,23 @@ describe('Create Check-in Gym (e2e)', () => {
   })
 
   it('should be able to create a check-in', async () => {
-    const {token} = await createAndAuthenticateUser(app)
+    const { token } = await createAndAuthenticateUser(app)
 
     const gym = await prisma.gym.create({
-        data: {
+      data: {
         title: 'JavaScript Gym',
         latitude: -21.9751256,
         longitude: -47.9526912,
-        },
+      },
     })
 
     const response = await request(app.server)
-    .post(`/gyms/${gym.id}/check-ins`)
-    .set('Authorization', `Bearer ${token}`)
-    .send({
+      .post(`/gyms/${gym.id}/check-ins`)
+      .set('Authorization', `Bearer ${token}`)
+      .send({
         latitude: -21.9751256,
         longitude: -47.9526912,
-    })
+      })
 
     expect(response.statusCode).toEqual(201)
   })
